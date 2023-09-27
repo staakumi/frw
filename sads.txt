@@ -1,1 +1,154 @@
 sad
+using System;
+
+class Calculator
+{
+    static void Main()
+    {
+        int operation;
+        double number1, number2;
+
+        do
+        {
+            Console.WriteLine("Выберите операцию:");
+            Console.WriteLine("1. Сложение");
+            Console.WriteLine("2. Вычитание");
+            Console.WriteLine("3. Умножение");
+            Console.WriteLine("4. Деление");
+            Console.WriteLine("5. Возведение в степень");
+            Console.WriteLine("6. Квадратный корень");
+            Console.WriteLine("7. 1 процент от числа");
+            Console.WriteLine("8. Факториал");
+            Console.WriteLine("9. Выйти из программы");
+
+            string input = Console.ReadLine();
+
+            // Проверка на некорректный ввод символов
+            if (!int.TryParse(input, out operation))
+            {
+                Console.WriteLine("Некорректный ввод символов! Попробуйте снова.");
+                continue;
+            }
+
+            // Выполнение выбранной операции
+            switch (operation)
+            {
+                case 1:
+                    Console.WriteLine("Введите первое число:");
+                    number1 = GetNumberFromInput();
+                    Console.WriteLine("Введите второе число:");
+                    number2 = GetNumberFromInput();
+                    Console.WriteLine("Результат: " + (number1 + number2));
+                    break;
+                case 2:
+                    Console.WriteLine("Введите первое число:");
+                    number1 = GetNumberFromInput();
+                    Console.WriteLine("Введите второе число:");
+                    number2 = GetNumberFromInput();
+                    Console.WriteLine("Результат: " + (number1 - number2));
+                    break;
+                case 3:
+                    Console.WriteLine("Введите первое число:");
+                    number1 = GetNumberFromInput();
+                    Console.WriteLine("Введите второе число:");
+                    number2 = GetNumberFromInput();
+                    Console.WriteLine("Результат: " + (number1 * number2));
+                    break;
+                case 4:
+                    Console.WriteLine("Введите первое число:");
+                    number1 = GetNumberFromInput();
+                    Console.WriteLine("Введите второе число:");
+                    number2 = GetNumberFromInput();
+
+                    // Проверка деления на ноль
+                    if (number2 == 0)
+                    {
+                        Console.WriteLine("Ошибка: нельзя делить на ноль!");
+                        break;
+                    }
+
+                    Console.WriteLine("Результат: " + (number1 / number2));
+                    break;
+                case 5:
+                    Console.WriteLine("Введите число:");
+                    number1 = GetNumberFromInput();
+                    Console.WriteLine("Введите степень:");
+                    number2 = GetNumberFromInput();
+                    Console.WriteLine("Результат: " + Math.Pow(number1, number2));
+                    break;
+                case 6:
+                    Console.WriteLine("Введите число:");
+                    number1 = GetNumberFromInput();
+
+                    // Проверка корректности извлечения корня из отрицательного числа или нуля
+                    if (number1 < 0)
+                    {
+                        Console.WriteLine("Ошибка: нельзя извлекать корень из отрицательного числа или нуля!");
+                        break;
+                    }
+
+                    Console.WriteLine("Результат: " + Math.Sqrt(number1));
+                    break;
+                case 7:
+                    Console.WriteLine("Введите число:");
+                    number1 = GetNumberFromInput();
+                    Console.WriteLine("Результат: " + (number1 / 100));
+                    break;
+                case 8:
+                    Console.WriteLine("Введите число:");
+                    number1 = GetNumberFromInput();
+
+                    // Проверка на отрицательное число
+                    if (number1 < 0)
+                    {
+                        Console.WriteLine("Ошибка: факториал можно вычислить только для неотрицательных чисел!");
+                        break;
+                    }
+
+                    Console.WriteLine("Результат: " + Factorial(number1));
+                    break;
+                case 9:
+                    Console.WriteLine("Программа завершена.");
+                    break;
+                default:
+                    Console.WriteLine("Некорректный выбор операции! Попробуйте снова.");
+                    break;
+            }
+
+            Console.WriteLine();
+        }
+        while (operation != 9);
+    }
+
+    // Функция для получения числа из ввода с проверкой на корректность
+    static double GetNumberFromInput()
+    {
+        double number;
+        string input = Console.ReadLine();
+
+        // Проверка на некорректный ввод символов
+        while (!double.TryParse(input, out number))
+        {
+            Console.WriteLine("Некорректный ввод символов! Попробуйте снова.");
+            input = Console.ReadLine();
+        }
+
+        return number;
+    }
+
+    // Функция для вычисления факториала числа
+    static double Factorial(double n)
+    {
+        if (n == 0)
+            return 1;
+
+        double result = 1;
+
+        for (int i = 1; i <= n; i++)
+        {
+            result *= i;
+        }
+
+        return result;
+    }
+}
